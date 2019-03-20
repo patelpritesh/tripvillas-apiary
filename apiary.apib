@@ -1,0 +1,1153 @@
+FORMAT: 1A
+HOST: https://www.tripvillas.com
+
+# Tripvillas
+
+Documentation for all APIs of Tripvillas.
+
+## Properties [/api/v3/property-fetch?property_id={property_id}]
+Api calls regarding properties.
++ Parameters
+    + property_id (number) - ID of the Property in the form of an integer
+
+
+### Get Property Details [GET]
+Get property details of the given property ID
+
+**Response Details**
+| Key   |      Value description      | Value data types |
+|:----------|:------------------------|:-----------------|
+| properties | List of properties | List of dictionaries |
+| restrictions | List of restrictions | List of strings |
+| bathrooms | Number of bathrooms | Integer |
+| description | Long description of property | String |
+| title | Name of the property | String |
+| sub_property_type | Type of the property. Refer to [Sub Property Type](#sub_property_types) | String |
+| active | Flag if the property is active on Tripvillas | Boolean |
+| propertyID | Tripvillas Id of the property | String |
+| url | Url of the property | String |
+| structure | Structure of the property according to room types | One dict having 4 keys:<br> "bathrooms", "bedrooms", "living_room" and "kitchen"|
+| structure&rarr;bathrooms | List of bathrooms | List of dicts |
+| structure&rarr;bathrooms &rarr;images | List of images of the bathroom | List of dicts |
+| struvture&rarr;bathrooms &rarr;amenities | List of amenities of the bathroom | List of Strings |
+| structure&rarr;bathrooms &rarr;name | Name of the bathroom | String |
+| structure&rarr;bedrooms | List of bedrooms | List of dicts |
+| structure&rarr;bedrooms &rarr;images | List of images of the bedroom | List of dicts |
+| struvture&rarr;bedrooms &rarr;amenities | List of amenities of the bedroom | List of Strings |
+| structure&rarr;bedrooms &rarr;name | Name of the bedroom | String |
+| structure&rarr;bedrooms &rarr;singlebed | Number of single beds in the room | Integer |
+| structure&rarr;bedrooms &rarr;kingbed | Number of king beds in the room | Integer |
+| structure&rarr;bedrooms &rarr;queenbed | Number of queen beds in the room | Integer |
+| structure&rarr;bedrooms &rarr;attachedBathroom | Set true if an attached bathroom is present for the bedroom | Boolean |
+| structure&rarr;living_room | Entry of the living room | Dict |
+| structure&rarr;living_room &rarr;available | Availability of a living room in the property | Boolean |
+| structure&rarr;living_room &rarr;images | (only in available) Images of the living room | List of dicts |
+| structure&rarr;living_room &rarr;amenities | (only in available) Amenities of the living room | List of Strings |
+| structure&rarr;kitchen | Entry of the kitchen | Dict |
+| structure&rarr;kitchen &rarr;available | Availability of a kitchenin the property | Boolean |
+| structure&rarr;kitchen &rarr;images | (only in available) Images of the kitchen | List of dicts |
+| structure&rarr;kitchen &rarr;amenities | (only in available) Amenities of the kitchen | List of Strings |
+| images | Property level images | List of dicts |
+| amenities | Property level [Amenities](#amenities) | List of Strings |
+| bedrooms | Number of bedrooms | Number |
+| maxOccupancy | Maximum occupancy of the property | Integer |
+| currency | Currency of the property. Cleaning fee and deposit are in same currency | 3 digit currency code (string) | 
+| cleaningFee | Amount of Cleaning fees | Float |
+| cleaningFeeType | Type of the cleaning fees | "No deposit/fee", "Percentage of total price", "Fixed amount per day", "Flat amount per stay", "Fixed amount per person", "Fixed amount per person/per day", "Fixed amount per week", "Fixed amount per person/per week", "According to consumption" |
+| cleaningFeePaymentType | Type of payment for cleaning fees | "Payable at location", "At the time of booking" |
+| securityDeposit | Amount of security Deposit | Float | 
+| securityDepositType | Type of security deposit | "No deposit/fee", "Percentage of total price", "Fixed amount per day", "Flat amount per stay", "Fixed amount per person", "Fixed amount per person/per day", "Fixed amount per week", "Fixed amount per person/per week", "According to consumption" |
+| securityDepositPaymentType | Type of payment for security deposit | "Payable at location", "At the time of booking" |
+| briefDescription | A short description of the property | String |
+| propertyType | Type of the property | "Room(s)","Studio(s)", "House(s)/Villa(s)/Apartment(s)" |
+| location | Locatioin details | Dict containing two keys: "address" and "geoCode" |
+| location&rarr;geoCode | Geographical details of the property | Dict containing keys "lat" and "lng" |
+| location&rarr;lat | Latitude of the property | Float |
+| location&rarr;lng | Longitude details of the property | Float |
+| location&rarr;address | Address details of the property | Dict containing keys "city", "country", "stateOrProvince", "address", "postalCode" and "drivingDirections" |
+| location&rarr;address &rarr;city | City name in which property is located | String |
+| location&rarr;address &rarr;country | Country code in which property is located | Two letter Country code (string) |
+| location&rarr;address &rarr;stateOrProvince | State or Province name in which property is located | String |
+| location&rarr;address &rarr;address | Full address of the property | String |
+| location&rarr;address &rarr;postalCode | Postal Code of the property | String |
+| location&rarr;address &rarr;drivingDirections | Driving directions to get to the property | String |
+
+***Images dict structure***
+| Key   |      Value description      | Value data types |
+|:----------|:------------------------|:-----------------|
+| url | Absolute Url of the image | String |
+| caption | Brief description of the Image | String |
+| sortOrder | Order in which the photo is displayed | Integer |
+
++ Request
+    + Headers
+    
+                    Authorization: Token 65263027fab7d440ba4c5f3b834fb800
+    
++ Response 200 (application/json)
+    + body
+    
+            {
+              "properties": [
+                {
+                  "restrictions": [
+                    "Loud Music",
+                    "Pets"
+                  ],
+                  "bathrooms": 1,
+                  "description": "This luxurious & cozy apartment is located in Arpora, North Goa, which is famous for its Saturday Night Market. Conveniently located, it is surrounded by lush greens and is only ten minutes away from the buzzing life of Goa, be it the beach, or any of the popular clubs. The architecture is contemporary with a huge courtyard in the center and a lounge on the ground floor, making the apartments look welcoming and luxurious.",
+                  "title": "Deluxe Room stay",
+                  "active": false,
+                  "sub_property_type": "Apartment",
+                  
+                  "url": "http://tripvillas.com/12397906",
+                  "structure": {
+                    "bathrooms": [
+                      {
+                        "images": [
+                          {
+                            "url": "/media/property_photos/original/12397906/drawing-room-9-copy.jpg",
+                            "caption": "Western Bathroom",
+                            "sortOrder": 4
+                          }
+                        ],
+                        "amenities": [
+                          "Indian Toilet",
+                          "Western Toilet",
+                          "Toilet Paper",
+                          "Hair dryer"
+                        ],
+                        "name": "Bathroom 1"
+                      }
+                    ],
+                    "bedrooms": [
+                      {
+                        "name": "Room",
+                        "attachedBathroom": true,
+                        "singlebed": 0,
+                        "amenities": [
+                          "AC"
+                        ],
+                        "images": [
+                          {
+                            "url": "/media/property_photos/original/12397906/img-20150328-wa0009.jpg",
+                            "caption": "Living Room with big Sofa",
+                            "sortOrder": 2
+                          }
+                        ],
+                        "queenbed": 1,
+                        "kingbed": 0
+                      }
+                    ],
+                    "living_room": {
+                      "available": true,
+                      "images": [
+                        {
+                          "url": "/media/property_photos/original/12397906/img-20150328-wa0009.jpg",
+                          "caption": "Living Room with big Sofa",
+                          "sortOrder": 2
+                        },
+                        {
+                          "url": "/media/property_photos/original/12397906/img-20150328-wa0016.jpg",
+                          "caption": "Living Room with big Sofa",
+                          "sortOrder": 1
+                        }
+                      ],
+                      "amenities": [
+                        "AC",
+                        "Sofa"
+                      ]
+                    },
+                    "kitchen": {
+                      "available": false
+                    }
+                  },
+                  "images": [
+                    {
+                      "url": "/media/property_photos/original/12397906/imag2664.jpg",
+                      "caption": "Back side View",
+                      "sortOrder": 1
+                    },
+                    {
+                      "url": "/media/property_photos/original/12397906/img-20151224-wa0007.jpg",
+                      "caption": "Bedroom and window view",
+                      "sortOrder": 2
+                    },
+                    {
+                      "url": "/media/property_photos/original/12397906/drawing-room-2-copy.jpg",
+                      "caption": "Side View from Balcony",
+                      "sortOrder": 3
+                    }
+                  ],
+                  "bedrooms": 1,
+                  "cleaningFee": 1000,
+                  "maxOccupancy": 4,
+                  "cleaningFeeType": "Fixed amount per week",
+                  "currency": "INR",
+                  "securityDepositType": "Fixed amount per person",
+                  "amenities": [
+                    "Television",
+                    "Satellite/Cable Connection",
+                    "Separate shower cubicle",
+                    "Doctor on call",
+                    "Laundry & Dry Cleaning Service",
+                    "Room Service",
+                    "Washing machine",
+                    "Banquet hall",
+                    "Garden/Lawn",
+                    "Cook on call",
+                    "Bus stop close by"
+                  ],
+                  "location": {
+                    "geoCode": {
+                      "latitude": 15.5709212974,
+                      "longitude": 73.7680779926
+                    },
+                    "address": {
+                      "city": "Arpora",
+                      "country": "IN",
+                      "address": "Villa Vaholl, Arpora, Goa 403509, India",
+                      "postalCode": "403519",
+                      "stateOrProvince": "Goa",
+                      "drivingDirections": ""
+                    }
+                  },
+                  "briefDescription": "Luxury & Premium Apartment located near Baga beach, North Goa",
+                  "propertyType": "Room(s)",
+                  "securityDepositPaymentType": "Payable in resort",
+                  "securityDeposit": 1200,
+                  "propertyID": "12397906",
+                  "cleaningFeePaymentType": "Payable in resort"
+                }
+              ]
+            }
+            
+
+# Group Live Quote
+## Live Quote [/api/v2/availabilityandrate?pax={pax}&check_in={check_in}&check_out={check_out}&property_id={property_id}&units={units}&currency={currency}]
+Api calls regarding properties.
++ Parameters
+    + property_id (number) - ID of the Property in the form of an integer
+    + check_in (string) - Check In date in the format "YYYY-MM-DD"
+    + check_out (string) - Check Out date in the format "YYYY-MM-DD"
+    + pax (number) - Number of adults.
+    + currency (string, optional) - 3 digit code of currency. Eg "INR", "USD"
+    + units (number, optional) - Number of units.
+
+
+### Get Live Quote [GET]
+Get live quotes for property ID
+
+**Response Details**
+| Key   |      Value description      | Value data types |
+|:----------|:------------------------|:-----------------|
+| status | Status of the response | "Success" or "Error" |
+| message | Message if any | String |
+| data | Dictionary containing the details of the quote | Dict |
+| data&rarr; available | Status of the availability of the property | Boolean |
+| data&rarr;currency | Currency code which is being used for all the rates | 3 digit country ISO code. |
+| data&rarr;check_in | Check in date which was provided as the GET parameter | String("YYYY-MM-DD") |
+| data&rarr;check_out | Check in date which was provided as the GET parameter | String("YYYY-MM-DD") |
+| data&rarr;units | Units of the property which was provided as the GET parameter. Defaults to 1 if not provided | Number |
+| data&rarr;total_amount | Total Amount for the booking (sub_total - discount + tax + cleaning_fee/security deposit if required at the time of booking) | Float |
+| data&rarr;sub_total | Rental rate  for the property | Float |
+| data&rarr;pax | Number of adults which was provided as the GET parameter | Integer |
+| data&rarr;tax | Total Tax | Float |
+| data&rarr;discount | Discount  | Float |
+| data&rarr;property_id | Property ID | Integer |
+| data&rarr;cleaning_fee | Cleaning fee amount | Float |
+| data&rarr;cleaning_fee_inclusive | Flag if cleaning fee payment is required at the time of booking. If value is true, total_amount will be inclusive of cleaning fee. If it is false, the cleaning fee is applicable at the time of checkin. | Boolean |
+| data&rarr;security_deposit | Security deposit amount | Float |
+| data&rarr;security_deposit_inclusive | Flag if security deposit payment is required at the time of booking. If value is true, total_amount will be inclusive of security deposit. If it is false, the security deposit is applicable at the time of checkin.| Boolean |
+
++ Request
+    + Headers
+    
+                    Authorization: Token 65263027fab7d440ba4c5f3b834fb800
+    
++ Response 200 (application/json)
+    + body
+    
+            {
+            "status": "Success",
+            "message": "",
+            "data": {
+                "available": true,
+                "tax": 15.05,
+                "sub_total": 125.4,
+                "cleaning_fee_inclusive": true,
+                "currency": "USD",
+                "check_out": "2018-05-05",
+                "property_id": "11821295",
+                "check_in": "2018-05-01",
+                "security_deposit_inclusive": true,
+                "total_amount": 130.26,
+                "discount": 0,
+                "pax": 1,
+                "cleaning_fee": 0.16,
+                "security_deposit": 4.7,
+                "units": 1
+                }
+            }
+
+
+# Group Rates
+## Rate [/api/v2/rates?property_id={property_id}&start_date={start_date}&end_date={end_date}&currency={currency}]
+Api calls regarding properties.
++ Parameters
+    + property_id (number) - ID of the Property in the form of an integer
+    + start_date (string, optional) - Starting date with the format "YYY-MM-DD"
+    + end_date (string, optional) - Ending date with the format "YYY-MM-DD"
+    + currency (string) - 3 digit code of currency. Eg "INR", "USD"
+
+
+### Get Rates [GET]
+Get rate details of the given property ID
+
+**Response Details**
+| Key   |      Value description      | Value data types |
+|:----------|:------------------------|:-----------------|
+| property_id | Id of the property whose rates are being sent | String containing property ID |
+| base_occupancy | Base occupancy of the property whose rates are being sent | Number containing Base occupancy |
+| currency | Currency in which the rates are being sent | 3 digit currency ISO code like "INR", "USD" |
+| rates | List of rates | List of dicts having keys: "rate", "extra_person", "start_day" and "end_day" |
+| rates&rarr;rate | Rate of single night for each day in the given range | String containing the rate as a decimal |
+| rates&rarr;extra_person | Rate of single night for each day in the given range | String containing the rate as a decimal|
+| rates&rarr;start_day | Start date of the range | String containing the start date in the format "YYYY-MM-DD" |
+| rates&rarr;end_day | End date of the range | String containing the end date in the format "YYYY-MM-DD" |
+
+
+
++ Request
+    + Headers
+    
+                    Authorization: Token 65263027fab7d440ba4c5f3b834fb800
+    
++ Response 200 (application/json)
+    + body
+
+            {
+                "currency": "INR",
+                "base_occupancy": 5,
+                "rates": [
+                    {
+                        "rate": "3526.18",
+                        "extra_person": "705",
+                        "start_day": "2018-02-20",
+                        "end_date": "2018-03-10"
+                    },
+                    {
+                        "rate": "3180.47",
+                        "extra_person": "636",
+                        "start_day": "2018-03-11",
+                        "end_date": "2018-03-16"
+                    },
+                    {
+                        "rate": "3526.18",
+                        "extra_person": "705",
+                        "start_day": "2018-03-17",
+                        "end_date": "2018-03-23"
+                    },
+                    {
+                        "rate": "3941.02",
+                        "extra_person": "788",
+                        "start_day": "2018-03-24",
+                        "end_date": "2018-03-30"
+                    },
+                    {
+                        "rate": "4770.71",
+                        "extra_person": "954",
+                        "start_day": "2018-03-31",
+                        "end_date": "2018-04-07"
+                    },
+                    {
+                        "rate": "4217.58",
+                        "extra_person": "844",
+                        "start_day": "2018-04-08",
+                        "end_date": "2018-04-08"
+                    },
+                    {
+                        "rate": "5185.56",
+                        "extra_person": "1037",
+                        "start_day": "2018-04-09",
+                        "end_date": "2018-04-13"
+                    },
+                    {
+                        "rate": "4701.57",
+                        "extra_person": "940",
+                        "start_day": "2018-04-14",
+                        "end_date": "2018-04-15"
+                    },
+                    {
+                        "rate": "5876.96",
+                        "extra_person": "1175",
+                        "start_day": "2018-04-16",
+                        "end_date": "2018-04-20"
+                    },
+                    {
+                        "rate": "4908.99",
+                        "extra_person": "982",
+                        "start_day": "2018-04-21",
+                        "end_date": "2018-04-22"
+                    },
+                    {
+                        "rate": "5876.96",
+                        "extra_person": "1175",
+                        "start_day": "2018-04-23",
+                        "end_date": "2018-04-27"
+                    },
+                    {
+                        "rate": "6291.81",
+                        "extra_person": "1729",
+                        "start_day": "2018-04-28",
+                        "end_date": "2018-05-04"
+                    },
+                    {
+                        "rate": "8642.59",
+                        "extra_person": "1729",
+                        "start_day": "2018-05-05",
+                        "end_date": "2018-05-12"
+                    },
+                    {
+                        "rate": "0.0",
+                        "extra_person": "1729",
+                        "start_day": "2018-05-13",
+                        "end_date": "2018-05-20"
+                    }
+                ],
+                "property_id": "10003607"
+            }
+            
+            
+# Group Availabilities
+## Availability [/api/v2/availability?property_id={property_id}&start_date={start_date}&end_date={end_date}]
+Api calls regarding properties.
++ Parameters
+    + property_id (number) - ID of the Property in the form of an integer
+    + start_date (string, optional) - Starting date with the format "YYY-MM-DD"
+    + end_date (string, optional) - Ending date with the format "YYY-MM-DD"
+
+
+### Get Availabilities [GET]
+Get rate details of the given property ID
+
+**Response Details**
+| Key   |      Value description      | Value data types |
+|:----------|:------------------------|:-----------------|
+| start_day | Start date of "minimum_lead_time", "availability", "minimum_stay" and "changeover" | String containing the start date in the format "YYYY-MM-DD" |
+| property_id | Id of the property whose rates are being sent | String containing property ID |
+| minimum_lead_time | The number of days before check-in, till which booking creation is allowed. | List of numbers, starting from the "start_day" and incrementing one day at a time, each denoting the minimum days. |
+| availability | Number of units available on specific days | List of numbers, starting from the "start_day" and incrementing one day at a time, each denoting availability. |
+| minimum_stay | The minimum number of nights the customer has to stay if checking in on the specific date. | List of numbers, starting from the "start_day" and incrementing one day at a time, each denoting the minimum nights stay required. |
+| changeover | Changeover codes(*see below*) for each day denoting check-in, check-out and stay through restrictions | List of numbers, starting from the "start_day" and incrementing one day at a time, each containing a changeover code. |
+
+**Changeover Codes**
+| Code   |      Code description      |
+|:----------|:------------------------|
+| 1 | NO_CHECK_IN_NO_CHECK_OUT_STAY_THROUGH |
+| 2 | NO_CHECK_IN_CHECK_OUT_NO_STAY_THROUGH |
+| 3 | NO_CHECK_IN_CHECK_OUT_STAY_THROUGH |
+| 4 | CHECK_IN_NO_CHECK_OUT_NO_STAY_THROUGH |
+| 5 | CHECK_IN_NO_CHECK_OUT_STAY_THROUGH |
+| 6 | CHECK_IN_CHECK_OUT_NO_STAY_THROUGH |
+| 7 | CHECK_IN_CHECK_OUT_STAY_THROUGH |
+
+
++ Request
+    + Headers
+    
+                    Authorization: Token 65263027fab7d440ba4c5f3b834fb800
+    
++ Response 200 (application/json)
+    + body
+
+                {
+                "minimum_lead_time": [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                ],
+                "availability": [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                "minimum_stay": [
+                    4,
+                    4,
+                    4,
+                    4,
+                    7,
+                    7,
+                    4,
+                    4,
+                    4,
+                    4,
+                    4,
+                    7,
+                    7,
+                    4,
+                    4,
+                    4,
+                    4,
+                    4,
+                    7,
+                    7,
+                    4,
+                    4,
+                    4,
+                    4,
+                    4,
+                    7,
+                    7,
+                    4,
+                    4,
+                    4,
+                    4,
+                    4,
+                    7,
+                    7,
+                    4,
+                    4,
+                    4,
+                    4,
+                    4,
+                    7,
+                    7,
+                    4,
+                    4,
+                    4,
+                    4,
+                    4,
+                    7,
+                    7,
+                    4,
+                    4,
+                    4,
+                    4,
+                    4,
+                    7,
+                    7,
+                    4,
+                    4,
+                    4,
+                    4,
+                    4,
+                    7,
+                    7,
+                    4,
+                    4,
+                    4,
+                    4,
+                    4,
+                    7,
+                    7,
+                    4,
+                    4,
+                    4,
+                    4,
+                    4,
+                    7,
+                    7,
+                    4,
+                    4,
+                    4,
+                    4,
+                    4,
+                    7,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                ],
+                "changeover": [
+                    1,
+                    1,
+                    1,
+                    3,
+                    7,
+                    1,
+                    5,
+                    1,
+                    1,
+                    1,
+                    3,
+                    7,
+                    1,
+                    5,
+                    1,
+                    1,
+                    1,
+                    3,
+                    7,
+                    1,
+                    5,
+                    1,
+                    1,
+                    1,
+                    3,
+                    7,
+                    1,
+                    5,
+                    1,
+                    1,
+                    1,
+                    3,
+                    7,
+                    1,
+                    5,
+                    1,
+                    1,
+                    1,
+                    3,
+                    7,
+                    1,
+                    5,
+                    1,
+                    1,
+                    1,
+                    3,
+                    7,
+                    1,
+                    5,
+                    1,
+                    1,
+                    1,
+                    3,
+                    7,
+                    1,
+                    5,
+                    1,
+                    1,
+                    1,
+                    3,
+                    7,
+                    1,
+                    5,
+                    1,
+                    1,
+                    1,
+                    3,
+                    7,
+                    1,
+                    5,
+                    1,
+                    1,
+                    1,
+                    3,
+                    7,
+                    1,
+                    5,
+                    1,
+                    1,
+                    1,
+                    3,
+                    3,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                ],
+                "start_date": "2018-02-20",
+                "property_id": "10003607"
+            }
+            
+            
+# Group Bookings
+## Booking Push [/api/v2/bookings]
+Api calls regarding properties.
+
+### Create/Cancel Booking [POST]
+Create a new Booking or cancel an existing booking on Tripvillas.
+
++ Attributes
+    + booking_id: "4243234" (string, required) - Booking Id or booking reference (Third Party booking Id.)
+    + status: "Confirmed" (string, required) - "Confirmed" to create new booking. "Cancelled" to delete booking.
+    + adults_num: 1 (number, required) - Number of Adults (*Not Applicable for Cancel Booking*)
+    + kids_num: 1 (number, required) - Number of kids (*Not Applicable for Cancel Booking*)
+    + check_in: `"2016-05-19 00:00"` (string, required) - Check in date in this format (year-mm-ddThh:mm:00) (*Not Applicable for Cancel Booking*)
+    + check_out: `"2016-05-25 00:00"` (string, required) - Check out date in this format (year-mm-ddThh:mm:00) (*Not Applicable for Cancel Booking*)
+    + total_amount: 650.50 (number, required) - Total Amount of booking (*Not Applicable for Cancel Booking*)
+    + guest_email: "anindya@tripvillas.com" (string, required) - Email of the Traveler (*Not Applicable for Cancel Booking*)
+    + first_name: "Anindya" (string, required) - Traveler's first name (*Not Applicable for Cancel Booking*)
+    + last_name: "Manna" (string, required) - Traveler's last name (*Not Applicable for Cancel Booking*)
+    + mobile_country_code: 91 (number, required) - Traveler's mobile country code (*Not Applicable for Cancel Booking*)
+    + mobile: 9123456678 (number, required) - Traveler's mobile number (*Not Applicable for Cancel Booking*)
+    + property_id: 11821295 (number, required) - Tripvillas Property Id (*Not Applicable for Cancel Booking*)
+    + booking_source_name: "testota" (string, required) - Booking source (Id of the Third Party. This will be provided to you by tripvillas once we setup your account.) (*Not Applicable for Cancel Booking*)
+    + units: 2 (number, optional) - If not provided, defaults to 1 (*Not Applicable for Cancel Booking*)
+    + booking_date: "2016-05-19 00:00"` (string, required) - Booking date in this format (year-mm-ddThh:mm:00) (*Not Applicable for Cancel Booking*)
+
++ Request
+    + Headers
+    
+                    Authorization: Token 65263027fab7d440ba4c5f3b834fb800
+                    Content-Type: application/json
+    + body
+    
+            {
+            "booking_id": "11821295"
+            "check_in":"2016-05-19 00:00",
+            "check_out":"2016-05-26 00:00",
+            "property_id":11821295,
+            "booking_source_name":"testota",
+            "total_amount":500,
+            "first_name":"Pritesh",
+            "last_name":"Patel",
+            "guest_email":"pritesh@xxx.com",
+            "mobile_country_code":"+91",
+            "mobile":123456789,
+            "adults_num" :5,
+            "kids_num": 2
+            }
+    
++ Response 201 (application/json)
+    + body
+    
+            {
+            "status": "Success",
+            "message": "",
+            "data": {
+                "check_in": "2016-06-30T00:00:00",
+                "adults_num": 2,
+                "total_amount": 500,
+                "state": "Confirmed",
+                "kids_num": 1,
+                "property": 11821295,
+                "check_out": "2016-07-07T00:00:00",
+                "id": "tv4137",
+                "guest_email": "pritesh@xxx.com"
+                }
+            }
+    
++ Response 400 (application/json)
+    + body
+    
+            {
+            "status": "Error",
+            "message": "1 unit not available on selected dates. Advance booking 3 days prior. Guests exceed maximum capacity of the property (3 ppl)",
+            "data": ""
+            }
+
++ Response 500 (application/json)
+    + body
+    
+            {
+            "status": "Error",
+            "message": "Internal Server Error",
+            "data": ""
+            }
+    
+    
++ Request
+    + Headers
+    
+                    Authorization: Token 65263027fab7d440ba4c5f3b834fb800
+                    Content-Type: application/json
+    + body
+    
+            {
+            "status": "Cancelled",
+            "booking_id": "11821295"
+            }
+    
++ Response 200 (application/json)
+    + body
+    
+            {
+            "status": "Success",
+            "message": "Booking has been cancelled successfully",
+            }
+    
++ Response 400 (application/json)
+    + body
+    
+            {
+            "status": "Error",
+            "message": "Booking Not Found",
+            "data": ""
+            }
+
++ Response 500 (application/json)
+    + body
+    
+            {
+            "status": "Error",
+            "message": "Internal Server Error",
+            "data": ""
+            }
+    
+
+    
+# Group Miscellaneous
+<a name="sub_property_types"></a>
+## Sub Property Types
+- Apartment
+- Bed and Breakfast
+- Boutique Hotel
+- Bungalow
+- Cabin
+- Camping Ground
+- Caravan
+- Castle
+- Chalet
+- Condo
+- Cottage
+- Farm
+- Guesthouse
+- Holiday park
+- Home
+- Homestay
+- Hostel
+- Hotel
+- HouseBoats
+- Lodge
+- Luxury Yacht
+- Other
+- Resort
+- Room
+- Ryokan (Japanese Inn)
+- Serviced Apartment
+- Studio
+- Villa
+
+<a name="amenities"></a>
+## List of AmenitiesChanged
+### Common Amenities
+- Gym
+- Power backup
+- Shopping Close by
+- Cinema close by
+- Park Nearby
+- Microwave
+- Dance Floor
+- Tennis Courts
+- Flybridge (Yachts)
+- Jet skis
+- Pool / Snooker Table
+- Squash Court
+- Gazebo
+- Wine Cellar
+- Sauna
+- Fireplace
+- Buzzer / Intercom
+- Telescopes
+- Kids Play Area
+- Heating
+- Infinity Pool
+- Steam Room
+- iPod Dock
+- Music System
+- Hot tub
+- Safe Locker/Deposit box
+- Iron
+- Table Tennis
+- Maid service
+- Kitchen supplies
+- Electronic Games
+- Baby Cot
+- DVD Library
+- Wine Fridge
+- Home Theatre System
+- Dish Washer
+- Plunge Pool
+- Ski
+- Toaster
+- Cookware
+- Gas/Stove
+- Refrigerator
+- Television
+- Satellite/Cable Connection
+- DVD player
+- Separate shower cubicle
+- Complimentary Newspaper
+- Books & Magazines
+- Doctor on call
+- Pick and Drop Facility
+- Travel desk
+- Laundry & Dry Cleaning Service
+- Room Service
+- Minibar & Gourmet Corner
+- Washing machine
+- Projector with Screen
+- Conference hall
+- Banquet hall
+- Kids pool
+- Garden/Lawn
+- Private Patio
+- Discotheque
+- Broadband
+- Spa
+- Cook on call
+- Bus stop close by
+- Linen provided
+- Hot water
+- Western toilet
+- Kettle
+- Shower
+- Bath tub
+- Parking Space
+- Housekeeping
+- Restaurants Close by
+- Fan
+- Air Conditioning
+- Wireless Internet
+- Kitchen (fully functional)
+- Railway station close by
+-  Airport close by
+- Public transportation
+- Swimming Pool
+- Bicycles
+- Jacuzzi
+- Decks with sunbeds
+- Sea View
+- Fishing Rods
+- Snorkels
+- Water filter
+- Ironing board
+- Tea/Coffee maker
+- Beach Nearby
+- Bar.B.Q. Grill
+- Hair dryer
+- Pots and Pans
+- Servant Quarters
+- Outdoor Fire/ Bonfire
+- Media Room
+- Clothes Dryer
+- Study / Office
+- Massages
+- Bar
+- Spare Matresses
+- Trekking Nearby
+- Oven
+- Balcony
+- 24/7 Power
+- Fixed Internet
+- Babysitter
+- Television With Cable Connection
+- AC
+- Couch
+- Wardrobe
+- Balcony
+- Toiletries
+- TV with USB
+- TV with HDMI
+- Non-Flat TV
+
+### Bathroom Amenities
+- Western Toilet
+- Ceiling Shower
+- Hand Shower
+- Toilet Paper
+- Jet Spray
+- Toiletries
+- Bath Tub
+- Hair dryer
+- Indian Toilet
+
+### Living Room Amenities
+- Television With Cable Connection
+- AC
+- Sofa
+- Dining Table
+- Sofa Cum Bed
+- TV with HDMI
+- TV with USB
+
+### Kitchen Amenities
+- Microwave
+- Utensils
+- Fridge
+- Toaster
+- Freezer
+- Gas
+- Oven/Stove
+- Blender
+- Dish Washer
+- Induction Cooktop
+- Spices & Condiments
+- Cutlery
+- Paper Plates
+- Water Purifier
